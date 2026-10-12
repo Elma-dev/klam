@@ -87,7 +87,7 @@ export default function UploadPanel() {
         </div>
 
         {!busy && (
-          <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-ink shadow-pop">
+          <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-on-accent shadow-pop">
             <IconUpload className="h-4 w-4" />
             {t('browse')}
           </span>

@@ -13,15 +13,18 @@ import {
   Button,
   IconDownload,
   IconList,
+  IconMoon,
   IconPalette,
   IconPlus,
   IconRedo,
-  IconUndo,
   IconButton,
+  IconSun,
+  IconUndo,
 } from './components/ui'
 import { loadFonts } from './fonts'
 import type { TranslationKey } from './i18n'
 import { useT } from './lib/useT'
+import { applyTheme, storedTheme, type Theme } from './lib/theme'
 import { useStore } from './store'
 
 type Tab = 'transcript' | 'style' | 'export'
@@ -41,6 +44,14 @@ export default function App() {
   const jobStatus = useStore((s) => s.jobStatus)
   const uiLang = useStore((s) => s.uiLang)
   const setUiLang = useStore((s) => s.setUiLang)
+  // Light unless this visitor has chosen dark. index.html has already applied
+  // the stored value to <html data-theme> before first paint.
+  const [theme, setTheme] = useState<Theme>(storedTheme)
+  const toggleTheme = () => {
+    const next: Theme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    applyTheme(next)
+  }
   const undo = useStore((s) => s.undo)
   const redo = useStore((s) => s.redo)
   const reset = useStore((s) => s.reset)
@@ -136,6 +147,14 @@ export default function App() {
           >
             {uiLang === 'ar' ? 'EN' : 'ع'}
           </button>
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? t('switchToLight') : t('switchToDark')}
+            title={theme === 'dark' ? t('switchToLight') : t('switchToDark')}
+            className="grid h-10 w-10 cursor-pointer place-items-center rounded-lg border border-line text-muted transition-colors hover:border-accent hover:text-paper max-sm:h-11 max-sm:w-11"
+          >
+            {theme === 'dark' ? <IconSun /> : <IconMoon />}
+          </button>
         </div>
       </header>
 
@@ -167,7 +186,7 @@ export default function App() {
                     role="tab"
                     className={`h-9 flex-1 cursor-pointer rounded-lg text-[13px] transition-colors duration-150 ${
                       tab === id
-                        ? 'bg-accent font-semibold text-ink'
+                        ? 'bg-accent font-semibold text-on-accent'
                         : 'text-muted hover:bg-surface-2 hover:text-paper'
                     }`}
                   >

@@ -39,6 +39,19 @@ export const IconRedo = ({ className }: IconProps) => (
   </Svg>
 )
 
+export const IconSun = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4" />
+  </Svg>
+)
+
+export const IconMoon = ({ className }: IconProps) => (
+  <Svg className={className}>
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+  </Svg>
+)
+
 export const IconPlus = ({ className }: IconProps) => (
   <Svg className={className}>
     <path d="M12 5v14M5 12h14" />
@@ -117,7 +130,7 @@ type Size = 'sm' | 'md' | 'icon'
 
 const VARIANT: Record<Variant, string> = {
   primary:
-    'bg-accent text-ink font-semibold hover:bg-accent/90 active:bg-accent/80 disabled:bg-line disabled:text-muted',
+    'bg-accent text-on-accent font-semibold hover:bg-accent/90 active:bg-accent/80 disabled:bg-line disabled:text-muted',
   outline:
     'border border-line text-muted hover:border-accent hover:text-paper disabled:hover:border-line disabled:hover:text-muted',
   ghost: 'text-muted hover:bg-surface-2 hover:text-paper',
@@ -329,7 +342,7 @@ export function Segmented<T extends string>({
             aria-selected={active}
             onClick={() => onChange(o.value)}
             className={`h-9 flex-1 cursor-pointer rounded-lg text-[13px] transition-colors ${
-              active ? 'bg-accent font-semibold text-ink' : 'text-muted hover:text-paper'
+              active ? 'bg-accent font-semibold text-on-accent' : 'text-muted hover:text-paper'
             }`}
           >
             {o.label}

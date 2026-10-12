@@ -1,10 +1,38 @@
 @import "tailwindcss";
 
-/* Klam — "Studio": a neutral near-black stage, one hot accent, cool
-   signal green for playback. The canvas is deliberately un-tinted so it never
-   colour-casts the video being captioned; the interface stays quiet and lets
-   the captions be the only loud thing on screen. */
+/* Klam — "Studio". One hot accent, cool signal green for playback, and a
+   deliberately un-tinted canvas so it never colour-casts the video being
+   captioned.
+
+   Light is the default; `html[data-theme="dark"]` below restores the
+   near-black stage. Both are the same design with different token values, so
+   components never need to know which theme is active. */
 @theme {
+  --color-ink: #f5f5f7; /* the stage */
+  --color-surface: #ffffff;
+  --color-surface-2: #eeeef2;
+  --color-line: #e2e2e8;
+  --color-paper: #14141c; /* primary text */
+  --color-muted: #63636f;
+
+  --color-accent: #ff5c38;
+  /* Dark enough to carry text at 14px, not just to draw a bar: #059669 would
+     be about 3.9:1 on white, this is about 5.5:1. */
+  --color-signal: #047857;
+  --color-danger: #dc2626;
+  /* Text sitting on the accent. Dark in both themes: white on #ff5c38 is about
+     2.4:1, this is about 8:1. */
+  --color-on-accent: #14141c;
+
+  --font-display: "Amiri", "Noto Naskh Arabic", serif;
+  --font-ui: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+
+  --radius-card: 14px;
+  --shadow-panel: 0 1px 2px rgb(16 16 24 / 0.05), 0 8px 24px -16px rgb(16 16 24 / 0.16);
+  --shadow-pop: 0 12px 28px -12px rgb(16 16 24 / 0.22);
+}
+
+html[data-theme="dark"] {
   --color-ink: #0a0a0c;
   --color-surface: #131317;
   --color-surface-2: #1b1b21;
@@ -12,14 +40,9 @@
   --color-paper: #f3f3f5;
   --color-muted: #9a9aa6;
 
-  --color-accent: #ff5c38;
   --color-signal: #34d399;
   --color-danger: #f87171;
 
-  --font-display: "Amiri", "Noto Naskh Arabic", serif;
-  --font-ui: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
-
-  --radius-card: 14px;
   --shadow-panel: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -16px rgb(0 0 0 / 0.8);
   --shadow-pop: 0 16px 40px -12px rgb(0 0 0 / 0.75);
 }

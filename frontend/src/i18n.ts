@@ -10,6 +10,8 @@ export const STRINGS = {
     discardConfirm: 'Start a new video? Unsaved edits will be lost.',
     undo: 'Undo',
     redo: 'Redo',
+    switchToDark: 'Switch to dark theme',
+    switchToLight: 'Switch to light theme',
 
     // Upload
     uploadHeadline: 'Auto-caption video in Arabic and Darija.',
@@ -174,6 +176,8 @@ export const STRINGS = {
     discardConfirm: 'بدء فيديو جديد؟ ستفقد التعديلات غير المحفوظة.',
     undo: 'تراجع',
     redo: 'إعادة',
+    switchToDark: 'التبديل إلى المظهر الداكن',
+    switchToLight: 'التبديل إلى المظهر الفاتح',
 
     // Upload
     uploadHeadline: 'ترجمة تلقائية للفيديو بالدارجة والعربية.',

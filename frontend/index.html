@@ -5,6 +5,18 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Klam — Auto Captions</title>
+    <script>
+      // Set the theme before first paint so a dark-mode visitor never sees a
+      // flash of light. Light is the default and needs no attribute, but it is
+      // written explicitly so the state is never ambiguous. The storage key is
+      // duplicated from src/lib/theme.ts: this has to run before any module.
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('klam-theme') === 'dark' ? 'dark' : 'light'
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
