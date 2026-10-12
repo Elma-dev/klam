@@ -7,7 +7,7 @@
 An auto-captioning video editor for Arabic and Darija. Upload a clip, edit the
 captions, style them against a live preview, export a burned-in video.
 
-It runs on your own machine. Apple Silicon uses MLX; an NVIDIA GPU uses PyTorch.
+It runs on your own machine. Apple Silicon uses MLX; an NVIDIA GPU uses Transformers.
 
 ![Editing Arabic captions Klam App](docs/demo.gif)
 
@@ -38,7 +38,7 @@ Then pick a transcription backend, set with `KLAM_ASR_PROVIDER` in
 | Provider | Runs on | Notes |
 |---|---|---|
 | `mlx` (default) | macOS, Apple Silicon | Fastest on a Mac. Needs a conversion step. |
-| `local-gpu` | Linux or Windows, NVIDIA GPU | PyTorch, in-process. Downloads its models on first run. Wants 16 to 20 GB of VRAM. |
+| `local-gpu` | Linux or Windows, NVIDIA GPU | Transformers, in-process. Downloads its models on first run. Wants 16 to 20 GB of VRAM. |
 | `voxtral` | Anything, including a CPU-only box | A remote endpoint, see [`deploy/modal/`](deploy/modal/). Sends your audio off the machine. |
 | `mock` | Anything | Fixed text and no model, for working on the editor. |
 
