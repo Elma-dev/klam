@@ -1,4 +1,4 @@
-# Vox Darija — development commands.
+# Klam — development commands.
 #
 # macOS native (default) uses the MLX provider via mlx-audio. Anywhere else uses
 # the Voxtral provider against a served model — see deploy/modal/ for the
@@ -71,7 +71,7 @@ model:
 	@echo "Model ready at $(MLX_MODEL)"
 
 doctor:
-	@$(PY) -c "from vox_darija.config import get_settings; from vox_darija.ffmpeg import resolve_ffmpeg, resolve_ffprobe, has_libass; from vox_darija.paths import resolve_fonts_dir; s=get_settings(); ff=resolve_ffmpeg(s); print('ffmpeg     ', ff); print('libass     ', has_libass(ff)); print('ffprobe    ', resolve_ffprobe(s)); print('fonts_dir  ', resolve_fonts_dir(s))"
+	@$(PY) -c "from klam.config import get_settings; from klam.ffmpeg import resolve_ffmpeg, resolve_ffprobe, has_libass; from klam.paths import resolve_fonts_dir; s=get_settings(); ff=resolve_ffmpeg(s); print('ffmpeg     ', ff); print('libass     ', has_libass(ff)); print('ffprobe    ', resolve_ffprobe(s)); print('fonts_dir  ', resolve_fonts_dir(s))"
 
 test:
 	cd backend && $(PY) -m pytest -q
@@ -86,7 +86,7 @@ fmt:
 	cd backend && $(PY) -m ruff format src tests
 
 dev:
-	cd backend && $(PY) -m uvicorn vox_darija.main:app --port $(BACKEND_PORT) --reload
+	cd backend && $(PY) -m uvicorn klam.main:app --port $(BACKEND_PORT) --reload
 
 frontend:
 	cd frontend && pnpm dev
@@ -102,17 +102,17 @@ dev-mac:
 	@trap 'kill 0' EXIT INT TERM; \
 	$(PY) -m mlx_audio.server --host $(MLX_HOST) --port $(MLX_PORT) --realtime --realtime-model $(MLX_MODEL) & \
 	sleep 3; \
-	cd backend && VOX_MLX_MODE=http VOX_MLX_BASE_URL=http://$(MLX_HOST):$(MLX_PORT) \
-		$(PY) -m uvicorn vox_darija.main:app --port $(BACKEND_PORT) --reload
+	cd backend && KLAM_MLX_MODE=http KLAM_MLX_BASE_URL=http://$(MLX_HOST):$(MLX_PORT) \
+		$(PY) -m uvicorn klam.main:app --port $(BACKEND_PORT) --reload
 
 # Everything together with a mock ASR (no model needed), for UI development.
 dev-all:
 	@trap 'kill 0' EXIT INT TERM; \
-	cd backend && VOX_ASR_PROVIDER=mock $(PY) -m uvicorn vox_darija.main:app --port $(BACKEND_PORT) & \
+	cd backend && KLAM_ASR_PROVIDER=mock $(PY) -m uvicorn klam.main:app --port $(BACKEND_PORT) & \
 	cd frontend && pnpm dev
 
 # Serverless GPU ASR endpoint (see deploy/modal/README.md). Needs the `modal`
-# client locally and a `vox-darija-asr` secret holding VOX_ASR_TOKEN.
+# client locally and a `klam-asr` secret holding KLAM_ASR_TOKEN.
 modal-weights:
 	modal run $(MODAL_APP)::download_models
 

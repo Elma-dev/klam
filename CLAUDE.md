@@ -15,14 +15,9 @@ GPU), `voxtral` (a remote endpoint), and `mock`. Only `asr/mlx_audio.py` and
 `aligners.py` are Apple-specific; everything else — pipeline, export, frontend —
 is cross-platform, so do not assume MLX when changing shared code.
 
-The product name is **Klam**; the Python package is still `vox_darija` and
-settings still use the `VOX_` prefix. Renaming those is a pending mechanical
-change — do not half-apply it, because imports, the Makefile, `pyproject.toml`,
-the deploy trees and the tests all have to move together.
-
 ## Layout
 
-- `backend/` — Python 3.12 + FastAPI. Package `vox_darija` under `src/`.
+- `backend/` — Python 3.12 + FastAPI. Package `klam` under `src/`.
 - `frontend/` — React + TS + Vite + Tailwind + Zustand.
 - `deploy/modal/` — serverless GPU ASR endpoint (remote `voxtral` provider).
 - `deploy/hf/` — assembles a Hugging Face Space.
@@ -76,7 +71,7 @@ and mirrors mlx-audio's own path heuristic.
 
 - **Python**: typed (`from __future__ import annotations`), ruff (`E F I W UP B`),
   no comments unless necessary, stdlib-first, no heavy deps without cause.
-- **Schema first**: `backend/src/vox_darija/schema.py` (Pydantic) is the single
+- **Schema first**: `backend/src/klam/schema.py` (Pydantic) is the single
   source of truth; the frontend mirrors it with Zod (`frontend/src/schema.ts`).
   Validate on save/load.
 - **ASR**: `ASRProvider.transcribe(audio, sample_rate, language) -> str`; the

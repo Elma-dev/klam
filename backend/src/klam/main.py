@@ -44,7 +44,7 @@ async def lifespan(app: FastAPI):
     await manager.shutdown()
 
 
-app = FastAPI(title="Vox Darija", lifespan=lifespan)
+app = FastAPI(title="Klam", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
@@ -233,4 +233,4 @@ async def download_export(export_id: str) -> FileResponse:
     path = EXPORTS / f"{export_id}.mp4"
     if not path.exists():
         raise HTTPException(status_code=404, detail="export not ready")
-    return FileResponse(path, media_type="video/mp4", filename="vox-darija.mp4")
+    return FileResponse(path, media_type="video/mp4", filename="klam.mp4")

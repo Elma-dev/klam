@@ -1,5 +1,5 @@
 ---
-title: Vox Darija
+title: Klam
 emoji: 🎬
 colorFrom: indigo
 colorTo: red
@@ -9,7 +9,7 @@ pinned: false
 python_version: "3.12"
 ---
 
-# Vox Darija
+# Klam
 
 Arabic and Darija captions: upload a clip, the GPU transcribes it with word-level
 timings, edit the captions in the table, then burn them in or download an SRT.

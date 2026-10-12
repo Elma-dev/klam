@@ -6,12 +6,12 @@ import wave
 import numpy as np
 import pytest
 
-from vox_darija.asr.base import ASRResult
-from vox_darija.asr.mock import MockProvider
-from vox_darija.config import Settings
-from vox_darija.export import to_srt
-from vox_darija.pipeline import transcribe_media
-from vox_darija.schema import Word
+from klam.asr.base import ASRResult
+from klam.asr.mock import MockProvider
+from klam.config import Settings
+from klam.export import to_srt
+from klam.pipeline import transcribe_media
+from klam.schema import Word
 
 pytestmark = pytest.mark.skipif(
     shutil.which("ffmpeg") is None or shutil.which("ffprobe") is None,

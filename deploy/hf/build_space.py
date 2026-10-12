@@ -1,6 +1,6 @@
 """Assemble — and optionally upload — the HF ZeroGPU Space.
 
-The Space is its own git repository, so it cannot import the Vox Darija package
+The Space is its own git repository, so it cannot import the Klam package
 from this repo. Rather than keep a hand-maintained copy that drifts, copy the
 package and the bundled fonts in at build time.
 
@@ -38,7 +38,7 @@ OUT = REPO / "build" / "hf-space"
 SPACE_FILES = ["app.py", "README.md", "requirements.txt", "packages.txt"]
 
 TREES = {
-    REPO / "backend" / "src" / "vox_darija": OUT / "vox_darija",
+    REPO / "backend" / "src" / "klam": OUT / "klam",
     # The same OFL fonts the browser and the local export use, so the burnt-in
     # captions look like the ones you designed.
     REPO / "frontend" / "public" / "fonts": OUT / "fonts",
@@ -94,7 +94,7 @@ def upload(repo_id: str) -> None:
             repo_type="space",
             folder_path=str(OUT),
             ignore_patterns=[".git*"],
-            commit_message="Vox Darija: ZeroGPU Gradio Space",
+            commit_message="Klam: ZeroGPU Gradio Space",
         )
     except Exception as exc:  # noqa: BLE001
         if os.environ.get("HF_TOKEN"):

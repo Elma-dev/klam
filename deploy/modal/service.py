@@ -25,7 +25,7 @@ from fastapi import (
 )
 from fastapi.responses import JSONResponse
 
-log = logging.getLogger("vox-darija-asr")
+log = logging.getLogger("klam-asr")
 
 
 class Transcript(Protocol):
@@ -47,10 +47,10 @@ class Engine(Protocol):
 
 
 def create_app(engine: Engine, token: str | None, public_model_name: str = "voxtral") -> FastAPI:
-    app = FastAPI(title="Vox Darija ASR", version="1.0.0")
+    app = FastAPI(title="Klam ASR", version="1.0.0")
 
     if not token:
-        log.warning("VOX_ASR_TOKEN is unset — the endpoint is UNAUTHENTICATED")
+        log.warning("KLAM_ASR_TOKEN is unset — the endpoint is UNAUTHENTICATED")
 
     @app.exception_handler(Exception)
     async def unhandled(_request: Request, exc: Exception) -> JSONResponse:

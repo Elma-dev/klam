@@ -9,7 +9,7 @@ from .config import Settings
 
 def _candidates(settings: Settings) -> list[Path]:
     here = Path(__file__).resolve()
-    repo = here.parents[3]  # .../backend/src/vox_darija -> repo root
+    repo = here.parents[3]  # .../backend/src/klam -> repo root
     out: list[Path] = []
     if settings.fonts_dir:
         out.append(Path(settings.fonts_dir).expanduser())

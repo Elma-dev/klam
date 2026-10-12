@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from vox_darija.schema import Word
-from vox_darija.segmentation import (
+from klam.schema import Word
+from klam.segmentation import (
     SegmentConfig,
     segment_chunks,
     segment_words,

@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import re
 
-from vox_darija.export import build_ass, export_subtitles
-from vox_darija.export.ass import _segment_is_rtl, _visual_order, ass_color, ass_time
-from vox_darija.schema import (
+from klam.export import build_ass, export_subtitles
+from klam.export.ass import _segment_is_rtl, _visual_order, ass_color, ass_time
+from klam.schema import (
     CaptionStyle,
     Direction,
     MediaInfo,
@@ -95,7 +95,7 @@ def test_ass_no_box_uses_border_style_1() -> None:
 
 
 def test_ass_word_modes_generate_per_word_lines() -> None:
-    from vox_darija.config import Settings
+    from klam.config import Settings
 
     p = _project()
     p.segments[0].words = [
@@ -111,7 +111,7 @@ def test_ass_word_modes_generate_per_word_lines() -> None:
 
 
 def test_export_subtitles_formats() -> None:
-    from vox_darija.config import Settings
+    from klam.config import Settings
 
     settings = Settings()
     p = _project()

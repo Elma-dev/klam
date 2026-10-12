@@ -30,4 +30,4 @@ def get_provider(settings: Settings) -> ASRProvider:
     # Falling through to MLX on a typo would run a different model than the one
     # asked for, silently and at multi-gigabyte cost.
     known = "mlx, mock, voxtral, local-gpu"
-    raise ValueError(f"Unknown VOX_ASR_PROVIDER {settings.asr_provider!r}. Use one of: {known}")
+    raise ValueError(f"Unknown KLAM_ASR_PROVIDER {settings.asr_provider!r}. Use one of: {known}")

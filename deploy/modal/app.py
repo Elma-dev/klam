@@ -1,16 +1,16 @@
-"""Modal app: a serverless GPU transcription endpoint for Vox Darija.
+"""Modal app: a serverless GPU transcription endpoint for Klam.
 
 Deploy:
 
-    modal secret create vox-darija-asr VOX_ASR_TOKEN=<a long random string>
+    modal secret create klam-asr KLAM_ASR_TOKEN=<a long random string>
     modal run deploy/modal/app.py::download_models   # one-time weight prefetch
     modal deploy deploy/modal/app.py
 
 Then point the app at it:
 
-    VOX_ASR_PROVIDER=voxtral
-    VOX_VOXTRAL_BASE_URL=https://<workspace>--vox-darija-asr-web.modal.run
-    VOX_VOXTRAL_API_KEY=<the same token>
+    KLAM_ASR_PROVIDER=voxtral
+    KLAM_VOXTRAL_BASE_URL=https://<workspace>--klam-asr-web.modal.run
+    KLAM_VOXTRAL_API_KEY=<the same token>
 
 The endpoint speaks the OpenAI transcription shape, so `VoxtralProvider` uses it
 unchanged. See README.md for the smoke test.
@@ -22,12 +22,12 @@ import os
 
 import modal
 
-APP_NAME = "vox-darija-asr"
+APP_NAME = "klam-asr"
 HF_MOUNT = "/root/.cache/huggingface"
 VOXTRAL_ID = os.environ.get(
     "VOXTRAL_MODEL_ID", "mistralai/Voxtral-Mini-4B-Realtime-Arabic"
 )
-ALIGNER_ID = os.environ.get("VOX_ALIGNER_MODEL_ID", "openai/whisper-large-v3-turbo")
+ALIGNER_ID = os.environ.get("KLAM_ALIGNER_MODEL_ID", "openai/whisper-large-v3-turbo")
 
 # How long the GPU stays warm after the last request, in seconds.
 #
@@ -41,13 +41,13 @@ ALIGNER_ID = os.environ.get("VOX_ALIGNER_MODEL_ID", "openai/whisper-large-v3-tur
 # that *raising* it never pays: staying warm around the clock would run to
 # ~$47/day, more than a month of the free allowance.
 #
-# Override at deploy time: VOX_SCALEDOWN_WINDOW=120 make modal-deploy
-SCALEDOWN_WINDOW = int(os.environ.get("VOX_SCALEDOWN_WINDOW", "900"))
+# Override at deploy time: KLAM_SCALEDOWN_WINDOW=120 make modal-deploy
+SCALEDOWN_WINDOW = int(os.environ.get("KLAM_SCALEDOWN_WINDOW", "900"))
 
 app = modal.App(APP_NAME)
 
 # Weights live on a Volume so they are fetched once, not on every cold start.
-hf_cache = modal.Volume.from_name("vox-darija-hf", create_if_missing=True)
+hf_cache = modal.Volume.from_name("klam-hf", create_if_missing=True)
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
@@ -121,4 +121,4 @@ class ASRService:
     def web(self):
         from service import create_app
 
-        return create_app(self.engine, os.environ.get("VOX_ASR_TOKEN"))
+        return create_app(self.engine, os.environ.get("KLAM_ASR_TOKEN"))

@@ -43,7 +43,7 @@ function downloadBlob(text: string, filename: string): void {
 function downloadUrl(url: string): void {
   const a = document.createElement('a')
   a.href = url
-  a.download = 'vox-darija.mp4'
+  a.download = 'klam.mp4'
   a.click()
 }
 

@@ -1,8 +1,8 @@
 """Command-line interface.
 
 Usage:
-    vox-darija transcribe video.mp4 --lang ar --output out.srt
-    vox-darija transcribe video.mp4 --provider mock --format json
+    klam transcribe video.mp4 --lang ar --output out.srt
+    klam transcribe video.mp4 --provider mock --format json
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ from .pipeline import transcribe_media
 
 def _build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="vox-darija", description="Transcribe and caption video."
+        prog="klam", description="Transcribe and caption video."
     )
     sub = p.add_subparsers(dest="command", required=True)
 

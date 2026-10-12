@@ -35,5 +35,5 @@ def resolve_mlx_model(ref: str, *, what: str) -> str:
     raise FileNotFoundError(
         f"{what} model not found at {path}.\n"
         "Build the default 8-bit MLX model with `make model`, or point "
-        "VOX_MLX_MODEL at a model on the Hugging Face Hub."
+        "KLAM_MLX_MODEL at a model on the Hugging Face Hub."
     )

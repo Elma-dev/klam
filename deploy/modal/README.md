@@ -1,6 +1,6 @@
 # Modal ASR endpoint
 
-A serverless GPU transcription endpoint for Vox Darija.
+A serverless GPU transcription endpoint for Klam.
 
 The app's models are Apple-MLX-only (`mlx-audio` Voxtral, plus an `mlx-audio`
 Whisper aligner), which pins the whole product to a Mac. This service moves the
@@ -63,10 +63,10 @@ field is never mistaken for OpenAI's `words` (which *is* timings of `text`).
 pip install modal && modal setup
 
 # one shared secret; use a long random string
-modal secret create vox-darija-asr VOX_ASR_TOKEN=$(python3 -c 'import secrets;print(secrets.token_urlsafe(32))')
+modal secret create klam-asr KLAM_ASR_TOKEN=$(python3 -c 'import secrets;print(secrets.token_urlsafe(32))')
 
 make modal-weights    # one-time: cache ~11 GB of weights on the Volume
-make modal-deploy     # prints a stable https://<workspace>--vox-darija-asr-web.modal.run
+make modal-deploy     # prints a stable https://<workspace>--klam-asr-web.modal.run
 ```
 
 `make modal-serve` runs a hot-reloading dev endpoint instead.
@@ -77,9 +77,9 @@ and will likely exceed the request timeout.
 ## Point the app at it
 
 ```bash
-export VOX_ASR_PROVIDER=voxtral
-export VOX_VOXTRAL_BASE_URL=https://<workspace>--vox-darija-asr-web.modal.run
-export VOX_VOXTRAL_API_KEY=<the same VOX_ASR_TOKEN>
+export KLAM_ASR_PROVIDER=voxtral
+export KLAM_VOXTRAL_BASE_URL=https://<workspace>--klam-asr-web.modal.run
+export KLAM_VOXTRAL_API_KEY=<the same KLAM_ASR_TOKEN>
 ```
 
 Then run the backend as usual. The app sends one request per VAD chunk (~30 s),
@@ -88,10 +88,10 @@ so a 52 s clip is two calls.
 ## Smoke test
 
 ```bash
-curl -s "$VOX_VOXTRAL_BASE_URL/healthz"
+curl -s "$KLAM_VOXTRAL_BASE_URL/healthz"
 
-curl -s "$VOX_VOXTRAL_BASE_URL/v1/audio/transcriptions" \
-  -H "Authorization: Bearer $VOX_VOXTRAL_API_KEY" \
+curl -s "$KLAM_VOXTRAL_BASE_URL/v1/audio/transcriptions" \
+  -H "Authorization: Bearer $KLAM_VOXTRAL_API_KEY" \
   -F file=@clip.wav \
   -F language=ar \
   -F response_format=verbose_json | python3 -m json.tool

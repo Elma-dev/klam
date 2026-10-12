@@ -1,5 +1,5 @@
 [project]
-name = "vox-darija"
+name = "klam"
 version = "0.1.0"
 description = "Open-source auto-captioning video editor, Arabic-first"
 readme = "README.md"
@@ -26,7 +26,7 @@ mlx = [
     "mlx==0.32.0",
     "mlx-audio==0.4.5",
 ]
-# In-process transcription on a CUDA GPU (VOX_ASR_PROVIDER=local-gpu). Kept out
+# In-process transcription on a CUDA GPU (KLAM_ASR_PROVIDER=local-gpu). Kept out
 # of the core dependencies because torch is large and only this provider needs
 # it; the MLX and remote providers both work without it.
 local-gpu = [
@@ -42,14 +42,14 @@ dev = [
 ]
 
 [project.scripts]
-vox-darija = "vox_darija.cli:main"
+klam = "klam.cli:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/vox_darija"]
+packages = ["src/klam"]
 
 [tool.ruff]
 line-length = 88

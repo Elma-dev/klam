@@ -11,13 +11,13 @@ import pytest
 @pytest.fixture(scope="module")
 def client(tmp_path_factory):
     data_dir = tmp_path_factory.mktemp("data")
-    os.environ["VOX_ASR_PROVIDER"] = "mock"
-    os.environ["VOX_DATA_DIR"] = str(data_dir)
-    os.environ["VOX_TIMED_ALIGNMENT"] = "false"
+    os.environ["KLAM_ASR_PROVIDER"] = "mock"
+    os.environ["KLAM_DATA_DIR"] = str(data_dir)
+    os.environ["KLAM_TIMED_ALIGNMENT"] = "false"
 
     from fastapi.testclient import TestClient
 
-    from vox_darija.main import app
+    from klam.main import app
 
     with TestClient(app) as c:
         yield c

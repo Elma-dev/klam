@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from vox_darija.model_ref import resolve_mlx_model
+from klam.model_ref import resolve_mlx_model
 
 
 def test_repo_id_is_passed_through() -> None:

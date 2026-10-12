@@ -1,6 +1,6 @@
-# Vox Darija — backend
+# Klam — backend
 
-FastAPI + Python backend for the Vox Darija auto-captioning editor. See the
+FastAPI + Python backend for the Klam auto-captioning editor. See the
 root `README.md` and `docs/PLAN.md` for the full picture.
 
 Quickstart (from the backend directory):
@@ -9,6 +9,6 @@ Quickstart (from the backend directory):
 uv venv .venv
 uv pip install -e ".[dev]"        # core + tests (no MLX)
 uv pip install -e ".[dev,mlx]"    # + MLX provider for macOS
-uv run vox-darija transcribe video.mp4 --lang ar --format srt
-uv run uvicorn vox_darija.main:app --reload
+uv run klam transcribe video.mp4 --lang ar --format srt
+uv run uvicorn klam.main:app --reload
 ```

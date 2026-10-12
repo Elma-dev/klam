@@ -1,4 +1,4 @@
-"""Vox Darija on Hugging Face ZeroGPU — a Gradio Space.
+"""Klam on Hugging Face ZeroGPU — a Gradio Space.
 
 Why Gradio and not the React editor: ZeroGPU is Gradio-SDK-only, and a custom
 frontend misses the `postMessage` handshake that sets
@@ -32,19 +32,19 @@ from pathlib import Path
 import spaces  # noqa: I001 — must precede torch
 
 HERE = Path(__file__).resolve().parent
-os.environ.setdefault("VOX_FONTS_DIR", str(HERE / "fonts"))
-os.environ.setdefault("VOX_DATA_DIR", tempfile.mkdtemp(prefix="vox-data-"))
+os.environ.setdefault("KLAM_FONTS_DIR", str(HERE / "fonts"))
+os.environ.setdefault("KLAM_DATA_DIR", tempfile.mkdtemp(prefix="vox-data-"))
 sys.path.insert(0, str(HERE))
 
 import gradio as gr  # noqa: E402
 
-from vox_darija.asr.local_gpu import LocalGPUProvider  # noqa: E402
-from vox_darija.audio.extract import probe_media  # noqa: E402
-from vox_darija.config import Settings  # noqa: E402
-from vox_darija.export.video import burn_video, export_subtitles  # noqa: E402
-from vox_darija.ffmpeg import require_ffmpeg_libass  # noqa: E402
-from vox_darija.pipeline import transcribe_media  # noqa: E402
-from vox_darija.schema import CaptionStyle, Project, Segment  # noqa: E402
+from klam.asr.local_gpu import LocalGPUProvider  # noqa: E402
+from klam.audio.extract import probe_media  # noqa: E402
+from klam.config import Settings  # noqa: E402
+from klam.export.video import burn_video, export_subtitles  # noqa: E402
+from klam.ffmpeg import require_ffmpeg_libass  # noqa: E402
+from klam.pipeline import transcribe_media  # noqa: E402
+from klam.schema import CaptionStyle, Project, Segment  # noqa: E402
 
 SETTINGS = Settings()
 FONTS = ["Cairo", "Noto Naskh Arabic", "Amiri", "Tajawal", "IBM Plex Sans Arabic", "Inter"]
@@ -199,9 +199,9 @@ def run_subtitles(media_path: str | None, rows, project, fmt: str, *kw):
 def demo() -> gr.Blocks:
     ffmpeg = require_ffmpeg_libass(SETTINGS)
 
-    with gr.Blocks(title="Vox Darija") as ui:
+    with gr.Blocks(title="Klam") as ui:
         gr.Markdown(
-            "# Vox Darija\n"
+            "# Klam\n"
             "Arabic and Darija captions, transcribed and burned in on a free "
             "Hugging Face GPU. Upload a clip, edit the captions, export."
         )

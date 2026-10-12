@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from vox_darija.schema import CaptionStyle, Project, Segment
+from klam.schema import CaptionStyle, Project, Segment
 
 
 def test_segment_roundtrip() -> None:
@@ -9,7 +9,7 @@ def test_segment_roundtrip() -> None:
 
 
 def test_project_roundtrip() -> None:
-    from vox_darija.schema import MediaInfo
+    from klam.schema import MediaInfo
 
     p = Project(
         media=MediaInfo(filename="a.mp4", duration=10.0, width=1920, height=1080),

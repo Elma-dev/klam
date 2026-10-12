@@ -9,7 +9,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="VOX_", env_file=".env", extra="ignore"
+        env_prefix="KLAM_", env_file=".env", extra="ignore"
     )
 
     # Data / storage

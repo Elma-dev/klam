@@ -28,7 +28,7 @@ from contract import WordOut
 if TYPE_CHECKING:
     import numpy as np
 
-log = logging.getLogger("vox-darija-asr")
+log = logging.getLogger("klam-asr")
 
 SAMPLE_RATE = 16000
 DEFAULT_VOXTRAL = "mistralai/Voxtral-Mini-4B-Realtime-Arabic"
@@ -93,7 +93,7 @@ class VoxtralEngine:
         if with_aligner:
             from transformers import pipeline
 
-            name = aligner_id or os.environ.get("VOX_ALIGNER_MODEL_ID", DEFAULT_ALIGNER)
+            name = aligner_id or os.environ.get("KLAM_ALIGNER_MODEL_ID", DEFAULT_ALIGNER)
             self.aligner = pipeline(
                 "automatic-speech-recognition",
                 model=name,

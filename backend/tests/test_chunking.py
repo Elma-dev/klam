@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from vox_darija.audio.chunking import make_chunks
+from klam.audio.chunking import make_chunks
 
 
 def _tone(freq: float, dur: float, sr: int = 16000, amp: float = 0.3) -> np.ndarray:

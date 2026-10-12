@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from vox_darija.direction import detect_direction, has_rtl
+from klam.direction import detect_direction, has_rtl
 
 
 def test_arabic_is_rtl() -> None:

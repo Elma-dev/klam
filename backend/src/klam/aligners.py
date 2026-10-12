@@ -4,7 +4,7 @@ Voxtral transcribes the text but returns no timings. Whisper is multilingual
 (Arabic included) and decodes the same audio with ``word_timestamps``, giving
 per-word boundaries driven by cross-attention. Its transcript can differ from
 Voxtral's, so the timings are mapped onto the Voxtral words by sequence
-alignment (:mod:`vox_darija.wordmap`) — this is how captions stay in sync.
+alignment (:mod:`klam.wordmap`) — this is how captions stay in sync.
 """
 
 from __future__ import annotations

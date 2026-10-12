@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from vox_darija.schema import Word
-from vox_darija.wordmap import align_transcript, normalize, proportional
+from klam.schema import Word
+from klam.wordmap import align_transcript, normalize, proportional
 
 
 def _ref(pairs: list[tuple[str, float, float]]) -> list[Word]:

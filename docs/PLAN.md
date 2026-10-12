@@ -1,4 +1,4 @@
-# PLAN — Vox Darija (open-source auto-captioning video editor, Arabic-first)
+# PLAN — Klam (open-source auto-captioning video editor, Arabic-first)
 
 ## 1. Goal
 
@@ -48,7 +48,7 @@ French, English, and Darija↔French code-switching. Fully local and offline.
 ```
 frontend/  React + TS + Vite + Tailwind + Zustand   (M2)
 backend/   Python + FastAPI                         (M1)
-  src/vox_darija/
+  src/klam/
     schema.py        shared caption+style JSON schema (Pydantic)
     asr/             ASRProvider protocol + providers
     audio/           ffmpeg extraction, VAD, chunking
@@ -71,7 +71,7 @@ scripts/  Makefile  docker-compose.yml
 
 `Project = {version, media, language, segments[], style, presets[]}`,
 `Segment = {id, start, end, text, words[]?, speaker?, dir?}`,
-`Word = {word, start, end}`. Defined in `backend/src/vox_darija/schema.py`
+`Word = {word, start, end}`. Defined in `backend/src/klam/schema.py`
 (Pydantic) and mirrored in the frontend with Zod. Validated on save/load.
 
 ## 6. Milestones
@@ -121,7 +121,7 @@ scripts/  Makefile  docker-compose.yml
 
 - **libass**: Homebrew's `ffmpeg` formula no longer ships libass; we use
   `ffmpeg-full` (keg-only) and auto-detect a libass-capable build
-  (`backend/src/vox_darija/ffmpeg.py`). `/health` and `make doctor` report it.
+  (`backend/src/klam/ffmpeg.py`). `/health` and `make doctor` report it.
 - **Shared geometry**: `CaptionStyle` lengths are px at `reference_height`
   (1080). The preview scales by `displayedHeight/1080`; the ASS export scales by
   `outputHeight/1080` with `PlayResX/Y = output size`. So font size, margins,
@@ -162,9 +162,9 @@ duration.
   can't overlap the next chunk or extend into silence.
 - `MLXAudioProvider` stays a pure text source; the aligner is provider-agnostic
   (`WhisperAligner.align(audio, sr, text, language)`).
-- `VOX_TIMED_ALIGNMENT` (default on, needs mlx) falls back to proportional timing
+- `KLAM_TIMED_ALIGNMENT` (default on, needs mlx) falls back to proportional timing
   when the aligner is unavailable (mock / HTTP / CI).
-- Tuning: `VOX_ALIGNER_MODEL`, `VOX_ALIGNER_LANGUAGE` (ISO code; empty = follow
+- Tuning: `KLAM_ALIGNER_MODEL`, `KLAM_ALIGNER_LANGUAGE` (ISO code; empty = follow
   the project language).
 
 An earlier attempt derived timing from the realtime streaming session's frame

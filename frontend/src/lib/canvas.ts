@@ -1,4 +1,4 @@
-// Mirrors the backend's export frame math (backend/src/vox_darija/export/video.py)
+// Mirrors the backend's export frame math (backend/src/klam/export/video.py)
 // so the preview canvas is the same frame ffmpeg produces. Keep the two in step:
 // if `target_size` or `build_vf` change there, change them here.
 

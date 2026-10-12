@@ -1,4 +1,4 @@
-# Vox Darija — frontend
+# Klam — frontend
 
 React + TypeScript + Vite + Tailwind + Zustand.
 

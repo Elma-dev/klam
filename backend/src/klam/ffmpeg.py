@@ -69,7 +69,7 @@ def require_ffmpeg_libass(settings: Settings) -> str:
         raise RuntimeError(
             "Burn-in export needs an FFmpeg built with libass. Install it with:\n"
             "  brew install ffmpeg-full\n"
-            "then set VOX_FFMPEG_BIN=/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg\n"
+            "then set KLAM_FFMPEG_BIN=/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg\n"
             "(see docs/PLAN.md)."
         )
     return ff

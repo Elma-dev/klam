@@ -16,14 +16,14 @@ def test_module_imports_without_torch() -> None:
     torch is absent from this environment, so the import succeeding *is* the
     assertion — a module-level torch import would raise here.
     """
-    from vox_darija.asr import local_gpu
+    from klam.asr import local_gpu
 
     assert local_gpu.LocalGPUProvider is not None
 
 
 def test_satisfies_the_word_timed_contract() -> None:
     """The pipeline branches on this capability, so it must exist by shape."""
-    from vox_darija.asr.local_gpu import LocalGPUProvider
+    from klam.asr.local_gpu import LocalGPUProvider
 
     for method in ("transcribe", "transcribe_result", "warmup"):
         assert callable(getattr(LocalGPUProvider, method, None)), method
@@ -31,8 +31,8 @@ def test_satisfies_the_word_timed_contract() -> None:
 
 
 def test_factory_selects_it_without_importing_torch() -> None:
-    from vox_darija.asr.factory import get_provider
-    from vox_darija.config import Settings
+    from klam.asr.factory import get_provider
+    from klam.config import Settings
 
     with pytest.raises(ImportError):
         # No CUDA host here: it must fail loudly on the missing dependency

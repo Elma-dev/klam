@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from vox_darija.export import to_srt, to_vtt
-from vox_darija.schema import Segment
+from klam.export import to_srt, to_vtt
+from klam.schema import Segment
 
 
 def test_srt_format() -> None:

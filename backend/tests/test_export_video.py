@@ -11,10 +11,10 @@ import subprocess
 
 import pytest
 
-from vox_darija.config import Settings
-from vox_darija.export import ExportOptions, build_ass, burn_video
-from vox_darija.ffmpeg import has_libass, resolve_ffmpeg
-from vox_darija.schema import Direction, MediaInfo, Project, Segment
+from klam.config import Settings
+from klam.export import ExportOptions, build_ass, burn_video
+from klam.ffmpeg import has_libass, resolve_ffmpeg
+from klam.schema import Direction, MediaInfo, Project, Segment
 
 settings = Settings()
 FFMPEG = resolve_ffmpeg(settings)

@@ -7,7 +7,7 @@ torch>=2.8,<2.14
 transformers>=5.2,<5.3
 huggingface_hub>=1.3,<2
 mistral-common[audio]>=1.9.0
-# The Vox Darija package's own runtime deps (it is vendored, not installed).
+# The Klam package's own runtime deps (it is vendored, not installed).
 pydantic-settings>=2.3
 httpx>=0.27
 numpy>=1.26

@@ -31,7 +31,7 @@ CI runs the backend suite and lint. Both must pass.
 ruff clean under `E F I W UP B`, standard library first. Avoid new dependencies
 unless they clearly earn their place; the project runs offline by design.
 
-**Schema first.** `backend/src/vox_darija/schema.py` (Pydantic) is the single
+**Schema first.** `backend/src/klam/schema.py` (Pydantic) is the single
 source of truth, and `frontend/src/schema.ts` (Zod) mirrors it. Change one and
 you almost always owe the other a change. Anything that travels between the two
 halves is validated on both sides.

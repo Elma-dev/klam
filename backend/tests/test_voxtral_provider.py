@@ -10,8 +10,8 @@ import httpx
 import numpy as np
 import pytest
 
-from vox_darija.asr.voxtral import VoxtralProvider, parse_words
-from vox_darija.config import Settings
+from klam.asr.voxtral import VoxtralProvider, parse_words
+from klam.config import Settings
 
 AUDIO = np.zeros(1600, dtype=np.float32)
 
@@ -139,7 +139,7 @@ def test_parse_words_skips_malformed_entries() -> None:
 
 def test_retries_a_dropped_cold_start_request(monkeypatch) -> None:
     """A scaled-to-zero endpoint loses the request that wakes it; one retry saves the job."""
-    monkeypatch.setattr("vox_darija.asr.voxtral.time.sleep", lambda _s: None)
+    monkeypatch.setattr("klam.asr.voxtral.time.sleep", lambda _s: None)
     seen: list[int] = []
 
     def handler(request: httpx.Request) -> httpx.Response:
@@ -158,7 +158,7 @@ def test_retries_a_dropped_cold_start_request(monkeypatch) -> None:
 
 
 def test_gives_up_after_the_attempt_limit(monkeypatch) -> None:
-    monkeypatch.setattr("vox_darija.asr.voxtral.time.sleep", lambda _s: None)
+    monkeypatch.setattr("klam.asr.voxtral.time.sleep", lambda _s: None)
     seen: list[int] = []
 
     def handler(request: httpx.Request) -> httpx.Response:

@@ -1,4 +1,4 @@
-// Zod mirror of the backend Pydantic schema (backend/src/vox_darija/schema.py).
+// Zod mirror of the backend Pydantic schema (backend/src/klam/schema.py).
 // This is the single source of truth for the frontend; keep it in sync.
 
 import { z } from 'zod'

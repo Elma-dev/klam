@@ -54,7 +54,7 @@ Shared by every platform:
 | **FFmpeg with libass** | Only for burned-in MP4 export. SRT, VTT, ASS and the whole editor work without it. |
 
 Then pick a transcription backend. Everything else about the app is identical
-whichever you choose, and you set it with `VOX_ASR_PROVIDER` in `backend/.env`
+whichever you choose, and you set it with `KLAM_ASR_PROVIDER` in `backend/.env`
 (copy `.env.example`) or the environment:
 
 | Backend | Runs on | Notes |
@@ -89,7 +89,7 @@ make setup-frontend   # frontend dependencies
 
 cd backend
 uv pip install --python .venv/bin/python -e ".[local-gpu]"
-cp ../.env.example .env      # then set VOX_ASR_PROVIDER=local-gpu
+cp ../.env.example .env      # then set KLAM_ASR_PROVIDER=local-gpu
 ```
 
 The first transcription pulls `mistralai/Voxtral-Mini-4B-Realtime-Arabic` and a
@@ -99,7 +99,7 @@ Whisper aligner from the Hub — several GB — after which it runs offline.
 
 With neither an Apple chip nor an NVIDIA GPU, run the models elsewhere and keep
 the editor local: see [`deploy/modal/`](deploy/modal/), then set
-`VOX_ASR_PROVIDER=voxtral` and `VOX_VOXTRAL_BASE_URL`.
+`KLAM_ASR_PROVIDER=voxtral` and `KLAM_VOXTRAL_BASE_URL`.
 
 > This **sends your audio off the machine**, so the upload screen's "nothing is
 > uploaded anywhere" line no longer applies to your setup.
@@ -144,14 +144,14 @@ consolidated file, which is why it works and a direct load does not.
 </details>
 
 To use a model someone has already published, skip the conversion entirely and
-point `VOX_MLX_MODEL` at a Hub repo id — the value may be either a local
+point `KLAM_MLX_MODEL` at a Hub repo id — the value may be either a local
 directory or a repo id, and a repo id downloads on first use:
 
 ```bash
-export VOX_MLX_MODEL=abdeljalilELmajjodi/voxtral-ar-8bit-mlx
+export KLAM_MLX_MODEL=abdeljalilELmajjodi/voxtral-ar-8bit-mlx
 ```
 
-The same applies to `VOX_ALIGNER_MODEL`, the Whisper model that supplies word
+The same applies to `KLAM_ALIGNER_MODEL`, the Whisper model that supplies word
 timings (it already defaults to a Hub repo id).
 
 <details>
@@ -170,8 +170,8 @@ make model MLX_HF_REPO=abdeljalilELmajjodi/voxtral-ar-8bit-mlx
 
 ```bash
 cd backend
-.venv/bin/python -m vox_darija transcribe clip.mp4 --lang ar --format srt
-.venv/bin/python -m vox_darija transcribe clip.mp4 --provider mock --format vtt
+.venv/bin/python -m klam transcribe clip.mp4 --lang ar --format srt
+.venv/bin/python -m klam transcribe clip.mp4 --provider mock --format vtt
 ```
 
 `--provider` takes `mlx`, `voxtral`, `local-gpu` or `mock`; `--format` takes
@@ -209,7 +209,7 @@ frontend/   React + TypeScript + Vite + Tailwind + Zustand
   public/fonts/        bundled OFL fonts + their licence texts
 
 backend/    Python 3.12 + FastAPI
-  src/vox_darija/
+  src/klam/
     schema.py          caption + style schema, the single source of truth
     pipeline.py        media → audio → VAD → chunks → ASR → captions
     asr/               ASRProvider protocol; mlx, voxtral, local-gpu, mock

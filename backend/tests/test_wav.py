@@ -5,7 +5,7 @@ import wave
 
 import numpy as np
 
-from vox_darija.audio.wav import to_wav_bytes, write_wav
+from klam.audio.wav import to_wav_bytes, write_wav
 
 
 def test_to_wav_bytes_is_a_real_wav() -> None:

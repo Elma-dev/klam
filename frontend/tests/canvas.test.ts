@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest'
 import { cropsContent, objectFitFor, ratioLabel, targetSize } from '../src/lib/canvas'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
-const VIDEO_PY = join(HERE, '..', '..', 'backend', 'src', 'vox_darija', 'export', 'video.py')
+const VIDEO_PY = join(HERE, '..', '..', 'backend', 'src', 'klam', 'export', 'video.py')
 
 describe('targetSize', () => {
   it('uses the fixed canvas for a target aspect', () => {

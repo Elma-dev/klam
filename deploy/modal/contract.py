@@ -1,7 +1,7 @@
 """The wire format between the Modal service and the app.
 
 Mirrors the OpenAI transcription shape that ``VoxtralProvider`` already posts to
-(``backend/src/vox_darija/asr/voxtral.py``), with one addition: ``words``.
+(``backend/src/klam/asr/voxtral.py``), with one addition: ``words``.
 
 ``words`` are **not** timings of ``text``. They come from a separate aligner
 model, and the app maps them onto ``text`` with ``wordmap.align_transcript``.

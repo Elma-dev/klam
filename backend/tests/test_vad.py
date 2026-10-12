@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from vox_darija.audio.vad import VadConfig, detect_speech
+from klam.audio.vad import VadConfig, detect_speech
 
 
 def _tone(freq: float, dur: float, sr: int = 16000, amp: float = 0.3) -> np.ndarray:

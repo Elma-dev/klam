@@ -1,8 +1,8 @@
 """VoxtralProvider — a remote Voxtral endpoint.
 
-This is the non-macOS path: ``VOX_VOXTRAL_BASE_URL`` points at a served model
+This is the non-macOS path: ``KLAM_VOXTRAL_BASE_URL`` points at a served model
 (vLLM, a Modal deployment, or anything speaking the OpenAI transcription shape)
-and ``VOX_VOXTRAL_API_KEY`` authenticates it.
+and ``KLAM_VOXTRAL_API_KEY`` authenticates it.
 
 The endpoint may also return word timings (``words``, as ``verbose_json`` does).
 Those come from a *different* model than ``text``, so they are handed to the
@@ -47,10 +47,10 @@ class VoxtralProvider:
             if self.settings.voxtral_model_id:
                 raise NotImplementedError(
                     "Local Transformers Voxtral is not implemented; serve the "
-                    "model and point VOX_VOXTRAL_BASE_URL at it instead."
+                    "model and point KLAM_VOXTRAL_BASE_URL at it instead."
                 )
             raise RuntimeError(
-                "VoxtralProvider needs VOX_VOXTRAL_BASE_URL or VOX_VOXTRAL_MODEL_ID"
+                "VoxtralProvider needs KLAM_VOXTRAL_BASE_URL or KLAM_VOXTRAL_MODEL_ID"
             )
         return self._via_http(audio, sample_rate, language, base)
 
