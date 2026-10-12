@@ -1,170 +1,110 @@
-<p align="center">
-  <img src="design/klam/klam-symbol-app-icon-512.png" alt="Klam" width="112">
-</p>
+<img src="design/klam/klam-symbol-app-icon-512.png" alt="Klam" width="96">
 
-<h1 align="center">Klam</h1>
+# Klam
 
-<p align="center">
-  <strong>Auto-captioning video editor for Arabic and Darija.</strong><br>
-  Upload a clip, edit the captions, restyle them live, export a burned-in MP4.
-</p>
+An auto-captioning video editor for Arabic and Darija. Upload a clip, edit the
+captions, style them against a live preview, export a burned-in video.
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache 2.0"></a>
-  <img src="https://img.shields.io/badge/platform-macOS%20%C2%B7%20Linux%20%C2%B7%20Windows-black.svg" alt="Platform: macOS, Linux and Windows">
-  <img src="https://img.shields.io/badge/Arabic%20%26%20RTL-first--class-FF5C38.svg" alt="Arabic and RTL, first-class">
-  <img src="https://img.shields.io/badge/runs-offline-success.svg" alt="Runs offline">
-</p>
+It runs on your own machine. Apple Silicon uses MLX; an NVIDIA GPU uses PyTorch.
 
-<p align="center">
-  <img src="docs/demo.gif" alt="Editing Arabic captions in Klam" width="820">
-</p>
-
----
-
-Arabic is the default case here, not a setting you hunt for: right-to-left
-layout, correct joining and shaping, mixed Arabic/Latin/numeral runs, and
-Darija ↔ French code-switching. The editor, the preview and the exported video
-all run on your own machine — **nothing is uploaded anywhere**.
+![Editing Arabic captions in Klam](docs/demo.gif)
 
 ## Features
 
-- **Transcribe** — speech to timed captions with VAD segmentation, chunking and
-  word-level alignment, so captions follow the voice instead of a fixed rate
-- **Edit** — split, merge, delete and retime segments against the playhead, with
-  undo/redo
-- **Style** — bundled Arabic fonts (Cairo, Tajawal, Noto Naskh Arabic, Amiri,
-  IBM Plex Sans Arabic, Inter), colour, outline, shadow, background, position,
-  RTL/LTR, and per-word highlight
-- **Export** — burned-in MP4 (libass), SRT, VTT, ASS and project JSON, at
-  source / 16:9 / 1:1 / 9:16
+- Speech to timed captions
+- Editable transcript: split, merge, delete, retime, undo/redo
+- Styling: bundled Arabic fonts, colour, outline, shadow, background, position,
+  RTL/LTR, per-word highlight
+- Export: burned-in MP4 (libass), SRT, VTT, ASS, project JSON
 
-The live preview and the burned-in export are produced from the same caption
-schema and the same font files, so what you see is what lands in the file.
+Arabic is handled throughout: RTL layout, letter joining, mixed
+Arabic/Latin/numeral text, and Darija and French code-switching. The preview and
+the exported file come from the same caption schema and the same font files.
 
 ## Requirements
 
-Shared by every platform:
+Common to every platform:
 
-| | |
-|---|---|
-| **Python 3.12** and **`uv`** | Backend. |
-| **Node** and **`pnpm`** | Frontend. |
-| **FFmpeg** | Required even with no speech model — every job extracts audio. |
-| **FFmpeg with libass** | Only for burned-in MP4 export. SRT, VTT, ASS and the whole editor work without it. |
+- Python 3.12 and [uv](https://docs.astral.sh/uv/)
+- Node and pnpm
+- FFmpeg, required for every job since audio is extracted from the video
+- FFmpeg built with libass, needed only for burned-in MP4 export
 
-Then pick a transcription backend. Everything else about the app is identical
-whichever you choose, and you set it with `KLAM_ASR_PROVIDER` in `backend/.env`
-(copy `.env.example`) or the environment:
+Then pick a transcription backend, set with `KLAM_ASR_PROVIDER` in
+`backend/.env` (copy `.env.example`) or the environment:
 
-| Backend | Runs on | Notes |
+| Provider | Runs on | Notes |
 |---|---|---|
-| **`mlx`** *(default)* | macOS, Apple Silicon | Fastest on a Mac. The only backend that needs a conversion step. |
-| **`local-gpu`** | Linux or Windows, NVIDIA GPU | torch + transformers in-process. **No conversion** — it downloads its models from the Hub on first run. Wants ~16–20 GB of VRAM for both models. |
-| **`voxtral`** | Anything, including a CPU-only box | A remote OpenAI-compatible endpoint — see [`deploy/modal/`](deploy/modal/). Sends your audio off the machine. |
-| **`mock`** | Anything | Fixed Arabic text and no model, for working on the editor. |
+| `mlx` (default) | macOS, Apple Silicon | Fastest on a Mac. Needs a conversion step. |
+| `local-gpu` | Linux or Windows, NVIDIA GPU | PyTorch, in-process. Downloads its models on first run. Wants 16 to 20 GB of VRAM. |
+| `voxtral` | Anything, including a CPU-only box | A remote endpoint, see [`deploy/modal/`](deploy/modal/). Sends your audio off the machine. |
+| `mock` | Anything | Fixed text and no model, for working on the editor. |
 
-## Quickstart
+## Install
 
-### macOS on Apple Silicon
+### macOS, Apple Silicon
 
 ```bash
-git clone https://github.com/Elma-dev/klam.git && cd klam
-
-make setup            # Python venv + backend dependencies
-make setup-mlx        # + the MLX speech dependencies
-make model            # build the speech model — see below
-make setup-frontend   # frontend dependencies
+git clone https://github.com/Elma-dev/klam.git
+cd klam
+make setup
+make setup-mlx
+make model
+make setup-frontend
 ```
 
-### Linux or Windows with an NVIDIA GPU
-
-No conversion step, and MLX is not involved at all:
+### Linux or Windows, NVIDIA GPU
 
 ```bash
-git clone https://github.com/Elma-dev/klam.git && cd klam
-
-make setup            # Python venv + backend dependencies
-make setup-frontend   # frontend dependencies
-
+git clone https://github.com/Elma-dev/klam.git
+cd klam
+make setup
+make setup-frontend
 cd backend
 uv pip install --python .venv/bin/python -e ".[local-gpu]"
-cp ../.env.example .env      # then set KLAM_ASR_PROVIDER=local-gpu
+cp ../.env.example .env      # set KLAM_ASR_PROVIDER=local-gpu
 ```
 
-The first transcription pulls `mistralai/Voxtral-Mini-4B-Realtime-Arabic` and a
-Whisper aligner from the Hub — several GB — after which it runs offline.
+The first transcription downloads the models from the Hub.
 
-### Any machine, remote endpoint
-
-With neither an Apple chip nor an NVIDIA GPU, run the models elsewhere and keep
-the editor local: see [`deploy/modal/`](deploy/modal/), then set
-`KLAM_ASR_PROVIDER=voxtral` and `KLAM_VOXTRAL_BASE_URL`.
-
-> This **sends your audio off the machine**, so the upload screen's "nothing is
-> uploaded anywhere" line no longer applies to your setup.
-
-### Just the UI
-
-```bash
-make dev-all      # backend with the mock transcriber + the UI
-```
-
-Run whichever backend you configured, alongside the UI, in separate terminals:
+### Run
 
 ```bash
 make dev          # backend on http://localhost:8001
 make frontend     # UI on http://localhost:5173
 ```
 
-Open <http://localhost:5173>, drop in a clip, and caption it.
+Open <http://localhost:5173>.
 
-### The MLX speech model (macOS)
-
-`make model` converts the public
-[`mistralai/Voxtral-Mini-4B-Realtime-Arabic`](https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-Arabic)
-checkpoint into an 8-bit MLX model at `~/models/voxtral-ar-8bit`.
-
-Budget for it: **about 20 GB of free disk** (the source repository ships ~18 GB
-of weights; the result is ~4.7 GB) and **roughly 9–10 GB of RAM** at peak, so a
-16 GB Mac will swap. Expect several minutes.
-
-<details>
-<summary><strong>Why a conversion, and not the Hub repo directly</strong></summary>
-
-<br>
-
-The Mistral repository is a *conversion source*, not a loadable model. It ships
-its weights twice — once in Mistral's own `consolidated.safetensors` layout and
-once in HuggingFace format — under two different key schemes. mlx-audio's generic
-loader globs every `.safetensors` file and merges them, which produces garbage
-after the model's `sanitize()` step. The converter knows this and reads only the
-consolidated file, which is why it works and a direct load does not.
-
-</details>
-
-To use a model someone has already published, skip the conversion entirely and
-point `KLAM_MLX_MODEL` at a Hub repo id — the value may be either a local
-directory or a repo id, and a repo id downloads on first use:
+### Without a model
 
 ```bash
-export KLAM_MLX_MODEL=abdeljalilELmajjodi/voxtral-ar-8bit-mlx
+make dev-all
 ```
 
-The same applies to `KLAM_ALIGNER_MODEL`, the Whisper model that supplies word
-timings (it already defaults to a Hub repo id).
+Runs the backend with a mock transcriber that returns fixed Arabic text, so you
+can work on the editor and export without downloading anything. FFmpeg is still
+required.
 
-<details>
-<summary><strong>Publishing the conversion (maintainers)</strong></summary>
+## The speech model
 
-<br>
+`make model` converts `mistralai/Voxtral-Mini-4B-Realtime-Arabic` into an 8-bit
+MLX model at `~/models/voxtral-ar-8bit`. Budget about 20 GB of free disk (the
+source repository ships ~18 GB of weights, the result is ~4.7 GB) and about 9 to
+10 GB of RAM at peak.
+
+The Mistral repository cannot be loaded directly. It ships its weights twice, in
+Mistral's `consolidated.safetensors` layout and in HuggingFace format, under
+different key schemes. mlx-audio's loader globs every `.safetensors` file and
+merges them, which produces garbage after the model's `sanitize()` step. It is a
+conversion source, not a model.
+
+`KLAM_MLX_MODEL` accepts either a local directory or a Hub repo id, and a repo id
+is downloaded on first use:
 
 ```bash
-hf auth login
-make model MLX_HF_REPO=abdeljalilELmajjodi/voxtral-ar-8bit-mlx
+export KLAM_MLX_MODEL=some-user/voxtral-ar-8bit-mlx
 ```
-
-</details>
 
 ## CLI
 
@@ -174,95 +114,75 @@ cd backend
 .venv/bin/python -m klam transcribe clip.mp4 --provider mock --format vtt
 ```
 
-`--provider` takes `mlx`, `voxtral`, `local-gpu` or `mock`; `--format` takes
-`srt`, `vtt` or `json`. Without `--output` it writes to stdout.
+`--provider` is one of `mlx`, `voxtral`, `local-gpu`, `mock`. `--format` is one
+of `srt`, `vtt`, `json`. Without `--output` it writes to stdout.
 
 ## Development
 
 ```bash
-make test     # backend pytest + frontend vitest
+make test     # pytest + vitest
 make lint     # ruff + oxlint
 make fmt      # ruff format
-make doctor   # ffmpeg / libass / fonts
+make doctor   # ffmpeg, libass, fonts
 make fonts    # (re)fetch the bundled OFL fonts
 ```
 
-Arabic correctness is tested rather than assumed — HarfBuzz shaping tests in the
-backend assert joined forms and catch missing glyphs, and Skia golden-image tests
-in the frontend compare rendered Arabic and mixed-script text against committed
-references. Those are what stop a bidi or font regression from shipping quietly.
+Arabic rendering is tested rather than assumed: HarfBuzz shaping assertions in
+the backend, and Skia golden-image comparisons in the frontend.
 
-<details>
-<summary><strong>Architecture</strong></summary>
-
-<br>
+## Architecture
 
 ```
-frontend/   React + TypeScript + Vite + Tailwind + Zustand
+frontend/   React, TypeScript, Vite, Tailwind, Zustand
   src/schema.ts        Zod mirror of the backend schema
-  src/store.ts         Zustand store: segments, style, undo/redo, upload
+  src/store.ts         segments, style, undo/redo, upload
   src/i18n.ts          Arabic and English UI strings
-  src/direction.ts     Unicode bidi first-strong detection
-  src/fonts.ts         bundled-font loader (@font-face) + custom fonts
+  src/direction.ts     bidi first-strong detection
+  src/fonts.ts         bundled-font loader
   src/lib/             canvas rendering, snapping, platform presets
-  src/components/      player, caption overlay, transcript, timeline, panels
-  public/fonts/        bundled OFL fonts + their licence texts
+  src/components/      player, overlay, transcript, timeline, panels
+  public/fonts/        bundled OFL fonts and their licence texts
 
-backend/    Python 3.12 + FastAPI
+backend/    Python 3.12, FastAPI
   src/klam/
-    schema.py          caption + style schema, the single source of truth
-    pipeline.py        media → audio → VAD → chunks → ASR → captions
-    asr/               ASRProvider protocol; mlx, voxtral, local-gpu, mock
-    aligners.py        Whisper word timings (the alignment reference track)
-    wordmap.py         maps reference words onto the transcript we display
-    model_ref.py       local directory or Hub repo id resolution
-    audio/             FFmpeg extraction, VAD, chunking
-    segmentation.py    caption line-breaking rules
-    direction.py       Unicode bidi first-strong detection
-    export/            ASS generator, SRT/VTT, libass burn-in
-    ffmpeg.py          libass-capable FFmpeg auto-detection
-    jobs.py            in-process asyncio queue + SQLite store
-    main.py            FastAPI app: upload, jobs, assets, export, SSE
+    schema.py          caption and style schema
+    pipeline.py        media -> audio -> VAD -> chunks -> ASR -> captions
+    asr/               providers: mlx, voxtral, local-gpu, mock
+    aligners.py        Whisper word timings
+    wordmap.py         maps reference words onto the transcript
+    model_ref.py       local directory or Hub repo id
+    audio/             extraction, VAD, chunking
+    segmentation.py    line breaking
+    direction.py       bidi first-strong detection
+    export/            ASS, SRT/VTT, libass burn-in
+    ffmpeg.py          libass-capable FFmpeg detection
+    jobs.py            asyncio queue and SQLite store
+    main.py            FastAPI app
 ```
 
-**How timing works.** Voxtral is the accurate Arabic transcriber but returns no
-timestamps, while the caption modes that follow the voice need them. So a second
-model — Whisper — decodes the same audio with word timestamps, and those
-reference words are mapped onto Voxtral's transcript by sequence alignment. A
-mediocre Whisper *transcript* therefore cannot corrupt the captions; it can only
-make the timings more proportional. With no aligner available at all, timings
-fall back to a proportional spread and the captions still render.
-
-</details>
-
-## Contributing
-
-Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md), and
-[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for the ground rules. Bugs that involve
-Arabic shaping, bidi or word timing are much easier to fix with a short clip
-attached.
+Voxtral returns text without word timestamps. Whisper decodes the same audio with
+word timestamps, and Klam maps those onto the Voxtral transcript by sequence
+alignment. A Whisper transcript that differs from Voxtral's cannot corrupt the
+captions, only the timings. With no aligner available, timings fall back to a
+proportional spread.
 
 ## Credits
 
-Klam is a thin layer over other people's work.
+- Speech recognition: Mistral AI's
+  [`Voxtral-Mini-4B-Realtime-Arabic`](https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-Arabic).
+  Its model card lists Modern Standard Arabic plus Moroccan, Algerian, Tunisian,
+  Libyan, Hassaniya, Gulf, Egyptian, Sudanese, Iraqi, Levantine and Chadian
+  Arabic. Check that card for licence terms before redistributing a converted
+  copy.
+- Word timings: OpenAI's Whisper, `openai/whisper-large-v3-turbo`.
+- Apple Silicon inference: [mlx-audio](https://github.com/Blaizzy/mlx-audio).
+- Fonts: Cairo, Tajawal, Noto Naskh Arabic, Amiri, IBM Plex Sans Arabic, Inter.
+  All SIL OFL 1.1, with licence texts committed alongside them.
 
-- **Speech recognition** —
-  [`mistralai/Voxtral-Mini-4B-Realtime-Arabic`](https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-Arabic),
-  Mistral AI's Arabic Voxtral checkpoint. Its model card lists Modern Standard
-  Arabic alongside Moroccan, Algerian, Tunisian, Libyan, Hassaniya, Gulf,
-  Egyptian, Sudanese, Iraqi, Levantine and Chadian Arabic — which is why Darija
-  works here without a separate model. Check that card for licence terms before
-  redistributing a converted copy.
-- **Word timings** — OpenAI's Whisper
-  ([`whisper-large-v3-turbo`](https://huggingface.co/openai/whisper-large-v3-turbo)),
-  used as a timing reference track and mapped onto the Voxtral transcript.
-- **Apple Silicon inference** — [`mlx-audio`](https://github.com/Blaizzy/mlx-audio).
-- **Fonts** — Cairo, Tajawal, Noto Naskh Arabic, Amiri, IBM Plex Sans Arabic and
-  Inter, all under the SIL Open Font License 1.1.
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## License
 
-[Apache-2.0](LICENSE).
-
-Bundled fonts are licensed under the SIL Open Font License 1.1, with their
-licence texts alongside them in `frontend/public/fonts/licenses/`.
+Apache-2.0. See [LICENSE](LICENSE).
