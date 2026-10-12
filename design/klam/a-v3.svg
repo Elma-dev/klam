@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Klam concept A v3 — the kaf as one continuous stroke</title>
+  <g fill="#111">
+    <!-- one stroke: ascender, elbow, baseline -->
+    <path fill="none" stroke="#111" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"
+          d="M190 76 V130 A28 28 0 0 1 162 158 H58"/>
+    <!-- the two i'jam dots, sitting in the letter's mouth -->
+    <circle cx="104" cy="114" r="14"/>
+    <circle cx="142" cy="114" r="14"/>
+  </g>
+</svg>

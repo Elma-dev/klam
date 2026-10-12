@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+backend/.venv/
+backend/data/
+data/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Agent tooling and local editor config. Listed explicitly because they are
+# otherwise only covered by a machine-global ignore, and `git add .` on another
+# machine would commit them.
+.claude/
+.agents/
+skills-lock.json
+
+# Build artifacts
+*.log
+# Assembled deploy trees (deploy/hf/build_space.py)
+build/

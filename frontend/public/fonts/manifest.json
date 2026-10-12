@@ -1,0 +1,94 @@
+{
+  "fonts": [
+    {
+      "family": "Cairo",
+      "file": "Cairo-Variable.ttf",
+      "weight": "200 1000",
+      "style": "normal",
+      "variable": true,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Noto Naskh Arabic",
+      "file": "NotoNaskhArabic-Variable.ttf",
+      "weight": "400 700",
+      "style": "normal",
+      "variable": true,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Amiri",
+      "file": "Amiri-Regular.ttf",
+      "weight": "400",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Amiri",
+      "file": "Amiri-Bold.ttf",
+      "weight": "700",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Tajawal",
+      "file": "Tajawal-Regular.ttf",
+      "weight": "400",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Tajawal",
+      "file": "Tajawal-Medium.ttf",
+      "weight": "500",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Tajawal",
+      "file": "Tajawal-Bold.ttf",
+      "weight": "700",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "file": "IBMPlexSansArabic-Regular.ttf",
+      "weight": "400",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "file": "IBMPlexSansArabic-SemiBold.ttf",
+      "weight": "600",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "file": "IBMPlexSansArabic-Bold.ttf",
+      "weight": "700",
+      "style": "normal",
+      "variable": false,
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Inter",
+      "file": "Inter-Variable.ttf",
+      "weight": "100 900",
+      "style": "normal",
+      "variable": true,
+      "license": "OFL-1.1"
+    }
+  ],
+  "license": "OFL-1.1",
+  "source": "google/fonts"
+}

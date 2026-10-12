@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Klam concept A v2 — the kaf: a line with its word</title>
+  <g fill="#111">
+    <rect x="44" y="150" width="160" height="26" rx="13"/>
+    <rect x="178" y="64" width="26" height="112" rx="13"/>
+    <circle cx="108" cy="116" r="14"/>
+    <circle cx="146" cy="116" r="14"/>
+  </g>
+</svg>

@@ -1,0 +1,64 @@
+[project]
+name = "vox-darija"
+version = "0.1.0"
+description = "Open-source auto-captioning video editor, Arabic-first"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "numpy>=1.26",
+    "python-multipart>=0.0.9",
+    # Both HTTP provider paths call a remote transcription endpoint, so the
+    # client is a runtime dependency, not a test-only one.
+    "httpx>=0.27",
+]
+
+[project.urls]
+Homepage = "https://github.com/Elma-dev/klam"
+Issues = "https://github.com/Elma-dev/klam/issues"
+
+[project.optional-dependencies]
+mlx = [
+    "mlx==0.32.0",
+    "mlx-audio==0.4.5",
+]
+# In-process transcription on a CUDA GPU (VOX_ASR_PROVIDER=local-gpu). Kept out
+# of the core dependencies because torch is large and only this provider needs
+# it; the MLX and remote providers both work without it.
+local-gpu = [
+    "torch>=2.8,<3",
+    "transformers>=5.2,<5.3",
+    "mistral-common[audio]>=1.9.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.5",
+    "uharfbuzz>=0.40",
+]
+
+[project.scripts]
+vox-darija = "vox_darija.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vox_darija"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

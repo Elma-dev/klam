@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Klam concept C — a K assembled from lines of text</title>
+  <g fill="#111">
+    <!-- K built from caption lines: varying lengths read as lines of a paragraph -->
+    <rect x="44" y="56"  width="120" height="24" rx="12"/>
+    <rect x="44" y="116" width="72"  height="24" rx="12"/>
+    <rect x="44" y="176" width="120" height="24" rx="12"/>
+    <!-- the arm and leg of the K -->
+    <path d="M176 56 L228 116 L228 176 L204 176 L152 116 Z"/>
+    <path d="M228 56 L228 116 L176 176 L152 176 L204 116 Z" opacity="0"/>
+  </g>
+</svg>

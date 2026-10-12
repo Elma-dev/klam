@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Klam concept A — the two dots of كلام over a caption line</title>
+  <g fill="#111">
+    <!-- caption baseline -->
+    <rect x="40" y="164" width="176" height="26" rx="13"/>
+    <!-- the kaf's two dots, sitting above the line like an unwritten word -->
+    <circle cx="106" cy="98" r="21"/>
+    <circle cx="158" cy="98" r="21"/>
+  </g>
+</svg>

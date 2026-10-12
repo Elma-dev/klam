@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Klam concept B — a voice settling into a line of text</title>
+  <g fill="#111">
+    <!-- left: a voice, three rising strokes of unequal height -->
+    <rect x="40" y="112" width="24" height="48" rx="12"/>
+    <rect x="76" y="84"  width="24" height="76" rx="12"/>
+    <rect x="112" y="100" width="24" height="60" rx="12"/>
+    <!-- right: the same rhythm resolved into an even caption line -->
+    <rect x="150" y="124" width="66" height="24" rx="12"/>
+  </g>
+</svg>

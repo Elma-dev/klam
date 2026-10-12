@@ -1,0 +1,13 @@
+# ZeroGPU pins its own `spaces` package — do not list it here.
+gradio>=4
+# ZeroGPU supports torch 2.8 through 2.13. Newer wheels bundle CUDA 13, which is
+# also what broke faster-whisper on Modal, so the ceiling matters.
+torch>=2.8,<2.14
+# VoxtralRealtimeForConditionalGeneration only exists from 5.2.0.
+transformers>=5.2,<5.3
+huggingface_hub>=1.3,<2
+mistral-common[audio]>=1.9.0
+# The Vox Darija package's own runtime deps (it is vendored, not installed).
+pydantic-settings>=2.3
+httpx>=0.27
+numpy>=1.26
