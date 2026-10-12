@@ -242,6 +242,24 @@ Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md), and
 Arabic shaping, bidi or word timing are much easier to fix with a short clip
 attached.
 
+## Credits
+
+Klam is a thin layer over other people's work.
+
+- **Speech recognition** —
+  [`mistralai/Voxtral-Mini-4B-Realtime-Arabic`](https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-Arabic),
+  Mistral AI's Arabic Voxtral checkpoint. Its model card lists Modern Standard
+  Arabic alongside Moroccan, Algerian, Tunisian, Libyan, Hassaniya, Gulf,
+  Egyptian, Sudanese, Iraqi, Levantine and Chadian Arabic — which is why Darija
+  works here without a separate model. Check that card for licence terms before
+  redistributing a converted copy.
+- **Word timings** — OpenAI's Whisper
+  ([`whisper-large-v3-turbo`](https://huggingface.co/openai/whisper-large-v3-turbo)),
+  used as a timing reference track and mapped onto the Voxtral transcript.
+- **Apple Silicon inference** — [`mlx-audio`](https://github.com/Blaizzy/mlx-audio).
+- **Fonts** — Cairo, Tajawal, Noto Naskh Arabic, Amiri, IBM Plex Sans Arabic and
+  Inter, all under the SIL Open Font License 1.1.
+
 ## License
 
 [Apache-2.0](LICENSE).
