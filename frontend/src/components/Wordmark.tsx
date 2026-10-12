@@ -4,23 +4,13 @@ export default function Wordmark() {
       <svg
         width="26"
         height="26"
-        viewBox="0 0 26 26"
+        viewBox="0 0 256 256"
         aria-hidden
         className="shrink-0 text-accent"
       >
-        <rect
-          x="1.25"
-          y="1.25"
-          width="23.5"
-          height="23.5"
-          rx="7"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          opacity="0.45"
-        />
-        <rect x="6.5" y="10" width="13" height="2.3" rx="1.15" fill="currentColor" />
-        <rect x="9.5" y="14.6" width="7" height="2.3" rx="1.15" fill="currentColor" opacity="0.6" />
+        <g fill="currentColor" transform="translate(41.84 211) scale(0.24)">
+          <path d="M40 -150H556Q616 -150 616 -210V-741H736V-210Q736 -102 692.5 -51.0Q649 0 556 0H40ZM254 -311 411 -385 409 -392H329Q254 -392 254 -462Q254 -497 277.0 -519.0Q300 -541 343 -566L409 -604L445 -544L322 -475L324 -467H402Q479 -467 479 -405Q479 -369 458.5 -346.0Q438 -323 396 -302L287 -247Z" />
+        </g>
       </svg>
       <span className="flex min-w-0 items-baseline gap-2">
         <span className="truncate font-display text-lg leading-none text-paper">Klam</span>
