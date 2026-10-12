@@ -1,4 +1,4 @@
-<img src="design/klam/klam-symbol-app-icon-512.png" alt="Klam" width="96">
+<img src="design/klam/klam-icon.svg" alt="Klam" width="96">
 
 # Klam
 
