@@ -130,7 +130,7 @@ type Size = 'sm' | 'md' | 'icon'
 
 const VARIANT: Record<Variant, string> = {
   primary:
-    'bg-accent text-on-accent font-semibold hover:bg-accent/90 active:bg-accent/80 disabled:bg-line disabled:text-muted',
+    'bg-accent text-on-accent font-semibold hover:bg-accent/90 active:bg-accent/80 disabled:bg-surface-2 disabled:text-muted',
   outline:
     'border border-line text-muted hover:border-accent hover:text-paper disabled:hover:border-line disabled:hover:text-muted',
   ghost: 'text-muted hover:bg-surface-2 hover:text-paper',

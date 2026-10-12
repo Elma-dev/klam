@@ -11,7 +11,7 @@
   --color-ink: #f5f5f7; /* the stage */
   --color-surface: #ffffff;
   --color-surface-2: #eeeef2;
-  --color-line: #e2e2e8;
+  --color-line: rgb(255 92 56 / 0.45); /* the brand orange, tinted */
   --color-paper: #14141c; /* primary text */
   --color-muted: #63636f;
 
@@ -36,7 +36,7 @@ html[data-theme="dark"] {
   --color-ink: #0a0a0c;
   --color-surface: #131317;
   --color-surface-2: #1b1b21;
-  --color-line: #2a2a32;
+  --color-line: rgb(255 92 56 / 0.38);
   --color-paper: #f3f3f5;
   --color-muted: #9a9aa6;
 
