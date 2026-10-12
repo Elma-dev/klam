@@ -9,7 +9,7 @@ captions, style them against a live preview, export a burned-in video.
 
 It runs on your own machine. Apple Silicon uses MLX; an NVIDIA GPU uses PyTorch.
 
-![Editing Arabic captions in Klam](docs/demo.gif)
+![Editing Arabic captions Klam App](docs/demo.gif)
 
 ## Features
 
