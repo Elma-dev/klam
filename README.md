@@ -1,6 +1,8 @@
-<img src="design/klam/klam-symbol-app-icon-512.png" alt="Klam" width="96">
+<p align="center">
+  <img src="design/klam/klam-symbol-app-icon-512.png" alt="Klam" width="96">
+</p>
 
-# Klam
+<h1 align="center">Klam</h1>
 
 An auto-captioning video editor for Arabic and Darija. Upload a clip, edit the
 captions, style them against a live preview, export a burned-in video.
