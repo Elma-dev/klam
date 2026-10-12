@@ -23,6 +23,9 @@
   /* Text sitting on the accent. Dark in both themes: white on #ff5c38 is about
      2.4:1, this is about 8:1. */
   --color-on-accent: #14141c;
+  /* The dot grid on the stage. Kept as a token so the pattern is a theme
+     decision rather than a hardcoded texture. */
+  --color-dot: rgb(20 20 28 / 0.07);
 
   --font-display: "Amiri", "Noto Naskh Arabic", serif;
   --font-ui: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
@@ -42,6 +45,8 @@ html[data-theme="dark"] {
 
   --color-signal: #34d399;
   --color-danger: #f87171;
+
+  --color-dot: rgb(255 255 255 / 0.05);
 
   --shadow-panel: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -16px rgb(0 0 0 / 0.8);
   --shadow-pop: 0 16px 40px -12px rgb(0 0 0 / 0.75);
@@ -64,6 +69,16 @@ body {
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
+}
+
+/* The stage: the app's own background, as opposed to the panels that sit on it.
+   A large flat field of light reads as glare, so the surface carries a fine dot
+   grid instead. It is a neutral grey at low opacity, which means it adds
+   texture without introducing a hue that could tint the video being captioned. */
+.stage {
+  background-color: var(--color-ink);
+  background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
 
 /* Visible, consistent keyboard focus in the brand accent. */
