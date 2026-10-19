@@ -25,7 +25,7 @@ help:
 	@echo "make setup-mlx       - also install the MLX provider deps (macOS)"
 	@echo "make setup-frontend  - install frontend deps (pnpm)"
 	@echo "make fonts           - (re)fetch bundled OFL fonts"
-	@echo "make model           - build the 8-bit MLX speech model (~20 GB disk)"
+	@echo "make model           - build the 8-bit MLX speech model (~8.3 GB download)"
 	@echo "make doctor          - check ffmpeg/libass/fonts"
 	@echo "make test            - run pytest"
 	@echo "make lint            - run ruff (backend)"
@@ -54,12 +54,15 @@ fonts:
 	python3 scripts/fetch_fonts.py
 
 # Build the default 8-bit MLX speech model. Run `make setup-mlx` first: this
-# needs mlx-audio (which brings mlx-lm), internet, and about 20 GB of free disk
-# — the source repo ships ~18 GB of weights and the output is ~4.7 GB. Peak
-# memory during conversion is roughly 9-10 GB, so a 16 GB Mac will swap.
+# needs mlx-audio (which brings mlx-lm and the `hf` CLI) and internet; see the
+# README for disk and memory. The source repo ships its weights twice, and the
+# converter only reads the Mistral-native consolidated.safetensors, so the
+# HF-format model*.safetensors copy (~8 GB) is excluded from the download.
 model:
+	src=$$($(dir $(PY))hf download $(VOXTRAL_HF) --quiet \
+		--exclude 'model*.safetensors' --exclude 'model.safetensors.index.json') && \
 	$(PY) -m mlx_audio.convert \
-		--hf-path $(VOXTRAL_HF) \
+		--hf-path "$$src" \
 		--mlx-path $(MLX_MODEL) \
 		--model-domain stt \
 		--quantize --q-bits 8 --q-group-size 64 \
