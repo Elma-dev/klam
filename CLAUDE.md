@@ -32,7 +32,7 @@ Run from the repo root unless noted.
 make setup            # uv venv + install core/dev deps (into backend/.venv)
 make setup-mlx        # + install MLX provider deps (macOS only)
 make setup-frontend   # pnpm install (frontend)
-make model            # build the 8-bit MLX speech model (~20 GB disk)
+make model            # build the 8-bit MLX speech model (~8.3 GB download)
 make fonts            # (re)fetch bundled OFL fonts
 make doctor           # check ffmpeg/libass/fonts
 make test             # pytest (backend) + vitest (frontend)
@@ -60,6 +60,10 @@ MLX model at `~/models/voxtral-ar-8bit`. Two things to know before touching this
   `consolidated.safetensors` and an HF-format `model.safetensors`) under
   different key schemes; mlx-audio's generic loader merges both and the result is
   garbage after `sanitize()`. It is a conversion source, not a model.
+- **Only `consolidated.safetensors` is downloaded.** mlx-audio's converter
+  prefers it whenever present, so the `model` target runs `hf download` with
+  the HF-format `model*.safetensors` excluded and passes the local snapshot as
+  `--hf-path`. The output is byte-identical to a conversion from the full repo.
 - **mlx-audio 0.4.5 copies `consolidated.safetensors` into the output**, which
   the `model` target deletes afterwards. Without that, the stray file is
   re-downloaded and merged on the next load.

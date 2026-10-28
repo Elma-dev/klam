@@ -91,15 +91,17 @@ required.
 ## The speech model
 
 `make model` converts `mistralai/Voxtral-Mini-4B-Realtime-Arabic` into an 8-bit
-MLX model at `~/models/voxtral-ar-8bit`. Budget about 20 GB of free disk (the
-source repository ships ~18 GB of weights, the result is ~4.7 GB) and about 9 to
-10 GB of RAM at peak.
+MLX model at `~/models/voxtral-ar-8bit`. It downloads about 8.3 GB; the
+conversion itself takes seconds on recent Apple Silicon. Budget about 21 GB of
+free disk at peak (about 13 GB afterwards: the download stays in the Hugging
+Face cache, the result is ~4.5 GB) and about 7 to 10 GB of RAM.
 
 The Mistral repository cannot be loaded directly. It ships its weights twice, in
 Mistral's `consolidated.safetensors` layout and in HuggingFace format, under
 different key schemes. mlx-audio's loader globs every `.safetensors` file and
 merges them, which produces garbage after the model's `sanitize()` step. It is a
-conversion source, not a model.
+conversion source, not a model. The converter only reads the Mistral-native
+copy, so `make model` skips the HuggingFace-format one and halves the download.
 
 `KLAM_MLX_MODEL` accepts either a local directory or a Hub repo id, and a repo id
 is downloaded on first use:
